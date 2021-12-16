@@ -291,7 +291,7 @@ public class Wrappers {
             printWriter.print(s);
             printWriter.close();
         } catch (IOException io) {
-            fmt_.format("s2fwrite failed: %s %d", f1.toString(), (s != null) ? "non-null string" : "null string");
+            fmt_.format("s2fwrite failed: %s", f1.toString(), (s != null) ? "non-null string" : "null string");
             log_.warn(sbuf());
         }
     }

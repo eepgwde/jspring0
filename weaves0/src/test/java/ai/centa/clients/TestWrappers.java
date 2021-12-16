@@ -1,9 +1,9 @@
-package clients;
+package ai.centa.clients;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import util.Wrappers;
+import ai.centa.weaves0.Wrappers;
 
 import java.io.File;
 import java.io.Serializable;
@@ -11,18 +11,20 @@ import java.util.*;
 import java.util.function.BiFunction;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertNotNull;
+// import static org.junit.Assert.assertNotNull;
 
 /*** Testing for the util.Wrappers singleton. ***/
 // @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-@RunWith(JUnitPlatform.class)
-@SelectPackages("ai.centa.clients")
 public class TestWrappers {
     private static final Log LOG = LogFactory.getLog(TestWrappers.class);
     static int counter = -1;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
     }
 
@@ -32,17 +34,23 @@ public class TestWrappers {
         Wrappers w = Wrappers.it();
         assertNotNull(w);
         LOG.debug(w.toString());
+        Throwable exception = assertThrows(UnsupportedOperationException.class, () -> {
+            throw new UnsupportedOperationException("Not supported");
+        });
+        assertEquals(exception.getMessage(), "Not supported");
     }
 
     // This is useful!
-    @Test(expected = RuntimeException.class)
+    @Test
     public void feature02() {
         LOG.info("instance: stackTrace");
-        RuntimeException e = new RuntimeException("trace");
+        Throwable e = assertThrows(RuntimeException.class, () -> {
+            throw new RuntimeException("trace");
+        });
+
         java.lang.Throwable t = (Throwable) e;
         StringBuffer sb = Wrappers.it().stackTrace(t);
         LOG.info(sb.toString());
-        throw e;
     }
 
     @Test
@@ -97,6 +105,7 @@ public class TestWrappers {
     }
 
     @Test
+    @Disabled
     public void feature20() {
         LOG.info("write to a directory: " + System.getProperty("java.io.tmpdir"));
 

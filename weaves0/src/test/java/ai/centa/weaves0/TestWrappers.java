@@ -2,19 +2,18 @@ package ai.centa.weaves0;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.junit.Before;
-import org.junit.FixMethodOrder;
-import org.junit.Test;
-import org.junit.runners.MethodSorters;
 
 import java.util.Formatter;
 import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
-import static org.junit.Assert.assertEquals;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
-@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 public class TestWrappers {
     private static final Log LOG = LogFactory.getLog(TestWrappers.class);
     static int counter = -1;
@@ -58,7 +57,7 @@ public class TestWrappers {
     Failer failer;
     Wrappers fwrapper; // same package, so I don't need a singleton.
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         failer = new Failer();
         // In its own package, it is not a Singleton.
@@ -72,11 +71,12 @@ public class TestWrappers {
         LOG.info(s);
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test
     public void test02Odd() {
         LOG.info("odd: exception before result");
-        String s = failer.apply(1);
-        LOG.info(s);
+        Throwable e = assertThrows(RuntimeException.class, () ->
+            failer.apply(1));
+        LOG.info(e.getMessage(), e);
     }
 
     @Test
