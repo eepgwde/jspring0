@@ -221,3 +221,34 @@ END { sub(/^[ ]+/, "", sess0); print sess0 }
 	    ;;
     esac
 }
+
+# <groupId>ai.centa</groupId>
+# <artifactId>weaves0</artifactId>
+# <version>0.0.1-SNAPSHOT</version>
+# <scope>system</scope>
+# <systemPath>weaves0/target/weaves0-0.0.1-SNAPSHOT.jar</systemPath>
+
+d_install () {
+  test $# -ge 1 || return 1
+  local cmd="$1"
+  shift
+
+  : ${d_dir:=$(basename $(pwd))}
+  : ${d_file:=$1}
+  : ${d_log:=$1}
+  : ${d_service:=ai.centa}
+
+  case $cmd in
+	  weaves0)
+      $nodo mvn package
+      test -f $d_file || return 2
+      $nodo mvn install:install-file \
+          -Dfile=$d_file \
+          -DgroupId=${d_service} \
+          -DartifactId=$d_dir \
+          -Dversion=0.0.1-SNAPSHOT \
+          -Dpackaging=jar \
+          -DgeneratePom=true
+      ;;
+  esac
+}

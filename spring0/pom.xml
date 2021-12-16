@@ -117,6 +117,14 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-log4j2</artifactId>
             </dependency>
+<dependency>
+    <groupId>ai.centa</groupId>
+    <artifactId>weaves0</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <scope>system</scope>
+    <systemPath>${pom.basedir}/lib/weaves0.jar</systemPath>
+</dependency>
+
             </dependencies>
         </profile>
 

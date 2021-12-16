@@ -12,7 +12,7 @@
 	  <groupId>ai.centa</groupId>
 	  <artifactId>weaves0</artifactId>
 	  <version>0.0.1-SNAPSHOT</version>
-	  <name>spring-boot-util</name>
+	  <name>utilecoj</name>
 	  <description>Local packaging for utility classes</description>
 
 	  <properties>
