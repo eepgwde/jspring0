@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- weaves -->
+<!-- LevelRangeFilter now has TRACE as maxLevel and FATAL as minLevel -->
+
+<Configuration status="debug" name="spring0">
+  <Properties>
+    <Property name="logPath">target/log</Property>
+    <Property name="rollingFileName">spring0</Property>
+
+    <Property name="logPattern">[%highlight{%-5level}] %d{HH:mm:ss,SSS} %c{-10}.%M() - %enc{%msg}{CRLF}%n%throwable{short.lineNumber}</Property>
+  </Properties>
+
+  <ThresholdFilter level="debug"/>
+  
+  <Appenders>
+    <Console name="console" target="SYSTEM_OUT" follow="true">
+      <PatternLayout pattern="${logPattern}" />
+      <LevelRangeFilter maxLevel="INFO" minLevel="FATAL" onMatch="ACCEPT" onMismatch="DENY"/>
+    </Console>
+
+    <RollingFile name="rollingFile" fileName="${logPath}/${rollingFileName}.log"
+                 filePattern="${logPath}/${rollingFileName}_%d{yyyy-MM-dd}-%i.log">
+      <PatternLayout pattern="${logPattern}" />
+      <LevelRangeFilter maxLevel="DEBUG" minLevel="FATAL" onMatch="ACCEPT" onMismatch="DENY"/>
+      <Policies>
+        <!-- Causes a rollover if the log file is older than the current JVM's start time -->
+        <OnStartupTriggeringPolicy />
+        <!-- Causes a rollover once the date/time pattern no longer applies to the active file -->
+        <TimeBasedTriggeringPolicy interval="1" modulate="true" />
+      </Policies>
+    </RollingFile>
+
+    <RollingFile name="local" fileName="${logPath}/${rollingFileName}-local.log"
+                 filePattern="${logPath}/${rollingFileName}-local_%d{yyyy-MM-dd}-%i.log">
+      <PatternLayout pattern="${logPattern}" />
+      <LevelRangeFilter maxLevel="DEBUG" minLevel="FATAL" onMatch="ACCEPT" onMismatch="DENY"/>
+      <Policies>
+        <!-- Causes a rollover if the log file is older than the current JVM's start time -->
+        <OnStartupTriggeringPolicy />
+        <!-- Causes a rollover once the date/time pattern no longer applies to the active file -->
+        <TimeBasedTriggeringPolicy interval="1" modulate="true" />
+      </Policies>
+    </RollingFile>
+  </Appenders>
+
+  <Loggers>
+
+    <Logger name="org.springframework" level="info">
+       <!-- drops all org.springframework below info -->
+      <AppenderRef ref="rollingFile" />
+    </Logger>
+
+    <Logger name="de.acando" level="debug">
+      <AppenderRef ref="local" />
+    </Logger>
+
+    <Logger name="util" level="debug">
+      <AppenderRef ref="local" />
+    </Logger>
+
+    <Logger name="clients" level="debug">
+      <AppenderRef ref="local" />
+    </Logger>
+
+    <Root level="info">
+      <AppenderRef ref="console" />
+    </Root>
+
+  </Loggers>
+</Configuration>

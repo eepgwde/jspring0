@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	              xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	  <modelVersion>4.0.0</modelVersion>
+	  <parent>
+		    <groupId>org.springframework.boot</groupId>
+		    <artifactId>spring-boot-starter-parent</artifactId>
+		    <version>2.5.0</version>
+		    <relativePath/>
+        <!-- lookup parent from repository -->
+	  </parent>
+	  <groupId>ai.centa</groupId>
+	  <artifactId>weaves0</artifactId>
+	  <version>0.0.1-SNAPSHOT</version>
+	  <name>spring-boot-util</name>
+	  <description>Local packaging for utility classes</description>
+
+	  <properties>
+		    <java.version>1.8</java.version>
+	  </properties>
+
+	  <dependencies>
+		    <dependency>
+			      <groupId>org.springframework.boot</groupId>
+			      <artifactId>spring-boot-starter-web</artifactId>
+                  <exclusions>
+        <exclusion>
+            <!-- force log4j2 -->
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-logging</artifactId>
+        </exclusion>
+    </exclusions>
+		    </dependency>
+
+		    <!-- tag::actuator[] -->
+		    <dependency>
+			      <groupId>org.springframework.boot</groupId>
+			      <artifactId>spring-boot-starter-actuator</artifactId>
+		    </dependency>
+		    <!-- end::actuator[] -->
+
+		    <!-- tag::tests[] -->
+		    <dependency>
+			      <groupId>org.springframework.boot</groupId>
+			      <artifactId>spring-boot-starter-test</artifactId>
+			      <scope>test</scope>
+		    </dependency>
+		    <!-- end::tests[] -->
+	  </dependencies>
+
+    <profiles>
+        <profile>
+            <id>build</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-compiler-plugin</artifactId>
+                        <version>3.1</version>
+                        <configuration>
+                            <fork>true</fork>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <profile>
+            <!--
+                 Allows developers to use their own cucumber.xml and
+                 testconfig.properties. See xtra/docs/developing.md
+            -->
+            <id>xtra</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <version>3.3.1</version>
+                        <configuration>
+                            <show>private</show>
+                            <nohelp>true</nohelp>
+                        </configuration>
+                    </plugin>
+
+                    <!-- because files are introduced by editors -->
+                    <plugin>
+                        <artifactId>maven-resources-plugin</artifactId>
+                        <version>3.1.0</version>
+                        <configuration>
+                            <addDefaultExcludes>true</addDefaultExcludes>
+                        </configuration>
+                    </plugin>
+                </plugins>
+
+                <testResources>
+                    <!-- add an extra resources directory for developer local testing -->
+                    <testResource>
+                        <directory>xtra/${user.name}/src/test/resources</directory>
+                    </testResource>
+                    <testResource> <!-- don't use the originals -->
+                        <directory>src/test/resources</directory>
+                        <excludes>
+                            <exclude>testconfig.properties</exclude>
+                            <exclude>cucumber.xml</exclude>
+                        </excludes>
+                    </testResource>
+                </testResources>
+            </build>
+            <dependencies>
+            <dependency>
+                <!-- this switches to log4j2 logging with the exclusion above -->
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-log4j2</artifactId>
+            </dependency>
+            </dependencies>
+        </profile>
+
+    </profiles>
+	  <build>
+		    <plugins>
+			      <plugin>
+				        <groupId>org.springframework.boot</groupId>
+				        <artifactId>spring-boot-maven-plugin</artifactId>
+			      </plugin>
+		    </plugins>
+	  </build>
+
+</project>
