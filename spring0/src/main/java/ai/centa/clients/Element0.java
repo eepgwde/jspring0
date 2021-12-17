@@ -11,8 +11,9 @@ import org.springframework.stereotype.Component;
 // @Component
 
 
-@Component
+@Configuration
 @PropertySource("classpath:application.properties")
+@ComponentScan("ai.centa.clients")
 public class Element0 {
 
     public Element0() {

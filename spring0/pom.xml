@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	              xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	       xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	  <modelVersion>4.0.0</modelVersion>
 	  <parent>
 		    <groupId>org.springframework.boot</groupId>
@@ -22,13 +22,6 @@
 		    <dependency>
 			      <groupId>org.springframework.boot</groupId>
 			      <artifactId>spring-boot-starter-web</artifactId>
-                  <exclusions>
-        <exclusion>
-            <!-- force log4j2 -->
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-logging</artifactId>
-        </exclusion>
-    </exclusions>
 		    </dependency>
 
 		    <!-- tag::actuator[] -->
@@ -45,31 +38,28 @@
 			      <scope>test</scope>
 		    </dependency>
 		    <!-- end::tests[] -->
+        <dependency>
+            <groupId>ai.centa</groupId>
+            <artifactId>weaves0</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+            <scope>system</scope>
+            <systemPath>${pom.basedir}/lib/weaves0.jar</systemPath>
+        </dependency>
 	  </dependencies>
+    <build>
+		    <plugins>
+			      <plugin>
+				        <groupId>org.springframework.boot</groupId>
+				        <artifactId>spring-boot-maven-plugin</artifactId>
+			      </plugin>
+        </plugins>
+	  </build>
 
     <profiles>
         <profile>
-            <id>build</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <artifactId>maven-compiler-plugin</artifactId>
-                        <version>3.1</version>
-                        <configuration>
-                            <fork>true</fork>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-
-        <profile>
             <!--
-                 Allows developers to use their own cucumber.xml and
-                 testconfig.properties. See xtra/docs/developing.md
+                 Allows developers to use their own resources.
+                 See xtra/docs/developing.md
             -->
             <id>xtra</id>
             <activation>
@@ -111,41 +101,6 @@
                     </testResource>
                 </testResources>
             </build>
-            <dependencies>
-            <dependency>
-                <!-- this switches to log4j2 logging with the exclusion above -->
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-log4j2</artifactId>
-            </dependency>
-<dependency>
-    <groupId>ai.centa</groupId>
-    <artifactId>weaves0</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <scope>system</scope>
-    <systemPath>${pom.basedir}/lib/weaves0.jar</systemPath>
-</dependency>
-
-            </dependencies>
         </profile>
-
     </profiles>
-	  <build>
-		    <plugins>
-			      <plugin>
-				        <groupId>org.springframework.boot</groupId>
-				        <artifactId>spring-boot-maven-plugin</artifactId>
-			      </plugin>
-       <plugin>
-         <groupId>org.apache.maven.plugins</groupId>
-         <artifactId>maven-surefire-plugin</artifactId>
-         <version>3.0.0-M5</version>
-         <configuration>
-           <additionalClasspathElements>
-             <additionalClasspathElement>${pom.basedir}/lib/weaves0.jar</additionalClasspathElement>
-           </additionalClasspathElements>
-         </configuration>
-       </plugin>
-     </plugins>
-	  </build>
-
 </project>

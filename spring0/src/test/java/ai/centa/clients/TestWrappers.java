@@ -13,6 +13,8 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import ai.centa.weaves0.Wrappers;
 
@@ -20,13 +22,16 @@ import ai.centa.weaves0.Wrappers;
 
 /*** Testing for the util.Wrappers singleton. ***/
 // @FixMethodOrder(MethodSorters.NAME_ASCENDING)
+@SpringBootTest(classes = com.example.springboot.Application.class)
 public class TestWrappers {
     private static final Log LOG = LogFactory.getLog(TestWrappers.class);
     static int counter = -1;
 
+    @Autowired
+    Element0 element0;
+
     @BeforeEach
     public void setUp() throws Exception {
-        Element0 element0 = new Element0();
         LOG.info(element0.tdir);
         LOG.info(element0.name);
         LOG.info(element0.stringValue);
