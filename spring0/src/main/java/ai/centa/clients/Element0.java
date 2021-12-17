@@ -8,8 +8,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
-// @Component
+import javax.annotation.PostConstruct;
 
+// @Component
 
 @Component
 public class Element0 {
@@ -33,5 +34,9 @@ public class Element0 {
         this.name0 = value;
     }
 
+    @PostConstruct
+    void audit() {
+        Wrappers.it().halt();
+    }
 
 }

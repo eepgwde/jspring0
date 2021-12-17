@@ -1,4 +1,4 @@
-# Spring0 - Development environments
+# Spring0 - Tricks with Maven
 
 Developers need to work with an IDE and with Maven.
 
@@ -7,9 +7,8 @@ For building, the Intellij IDE uses Maven.
 For testing, Maven can be used from the command-line for batch tests, bu JUnit
 can be used within the IDE for debug.
 
-Dev environments are all very different. This system uses Cucumber and it is
-difficult to change the testconfig.properties for your environment. And neither
-the cucumber.xml or testconfig.properties files should be changed.
+Dev environments are all very different. This system uses Spring-Boot and it is
+difficult to change the configuration files. 
 
 Here are two ways that the Maven build can be configured to build and test for a
 developer's own environment.
@@ -18,19 +17,25 @@ These are:
 
  - change the test resources
  - pass more command-line arguments
+
+Before that, it is useful to learn how to install local JAR files without 
+having to use a repository.
+
 ## Adding Local JAR files
  
-Maven has deprecated the local system
+Maven has deprecated the "system" scope. 
 
     <dependency>
         <groupId>com.sample</groupId>
         <artifactId>sample</artifactId>
         <version>1.0</version>
         <scope>system</scope>
-        <systemPath>${project.basedir}/src/main/resources/Name_Your_JAR.jar</systemPath>
+        <systemPath>${pom.basedir}/src/main/resources/Name_Your_JAR.jar</systemPath>
     </dependency>
 
-You can also use an install
+It uses pom.basedir rather than a project variable to avoid a warning.
+
+You can also use an install to your local repository
 
     mvn install:install-file \
     -Dfile=<path-to-file> \
@@ -40,21 +45,18 @@ You can also use an install
     -Dpackaging=<packaging> \
     -DgeneratePom=true
 
-And
-
 Where each refers to:
 
-<path-to-file>: the path to the file to load e.g → c:\kaptcha-2.3.jar
-
-<group-id>: the group that the file should be registered under e.g → com.google.code
-
-<artifact-id>: the artifact name for the file e.g → kaptcha
-
-<version>: the version of the file e.g → 2.3
-
-<packaging>: the packaging of the file e.g. → jar
+    <path-to-file>: the path to the file to load e.g → c:\kaptcha-2.3.jar
+    <group-id>: the group that the file should be registered under e.g → com.google.code
+    <artifact-id>: the artifact name for the file e.g → kaptcha
+    <version>: the version of the file e.g → 2.3
+    <packaging>: the packaging of the file e.g. → jar
 
 https://maven.apache.org/general.html#importing-jars
+
+You then add a conventional dependency. Maven does not download, because it is
+already there.
 
 ## Change the Test Resources
 

@@ -1,0 +1,7 @@
+*/target
+*/.idea
+*/lib
+make.log
+*.iml
+t.txt
+t.lst
