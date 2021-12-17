@@ -54,6 +54,6 @@ directory. This is the line to be added after @SpringBootApplication.
 
     @ComponentScan(basePackages = { "com.example.springboot", "ai.centa.clients" })
 
-If you know run mvn springboot:run and check the log files, you should see element0 
+If you now run mvn springboot:run and check the log files, you should see element0 
 appears.
 

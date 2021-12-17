@@ -11,11 +11,14 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.ImportResource;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 // @ComponentScan(basePackages = { "com.example.springboot", "ai.centa.clients" })
 
 @SpringBootApplication
-@ComponentScan(basePackages = { "com.example.springboot", "ai.centa.clients" })
+@ImportResource({"classpath*:applicationContext.xml"})
 public class Application {
 
     final static Logger LOG = LoggerFactory.getLogger(Application.class);
@@ -24,6 +27,8 @@ public class Application {
 
 	public static void main(String[] args) {
 		applicationContext = SpringApplication.run(Application.class, args);
+		// ApplicationContext ctx0 = new ClassPathXmlApplicationContext("/applicationContext.xml");
+		// LOG.info(String.valueOf(ctx0));
 	}
 
 	@Bean
