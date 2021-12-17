@@ -15,10 +15,13 @@ import org.springframework.context.annotation.ImportResource;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+// ComponentScan
+// Specify explicitly
 // @ComponentScan(basePackages = { "com.example.springboot", "ai.centa.clients" })
+// Or use an XML file on the classpath
+// @ImportResource({"classpath*:applicationContext.xml"})
 
 @SpringBootApplication
-@ImportResource({"classpath*:applicationContext.xml"})
 public class Application {
 
     final static Logger LOG = LoggerFactory.getLogger(Application.class);
@@ -27,8 +30,6 @@ public class Application {
 
 	public static void main(String[] args) {
 		applicationContext = SpringApplication.run(Application.class, args);
-		// ApplicationContext ctx0 = new ClassPathXmlApplicationContext("/applicationContext.xml");
-		// LOG.info(String.valueOf(ctx0));
 	}
 
 	@Bean
