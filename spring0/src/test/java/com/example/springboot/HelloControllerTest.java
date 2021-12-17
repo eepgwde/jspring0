@@ -4,6 +4,9 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import ai.centa.clients.Element0;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +26,15 @@ public class HelloControllerTest {
 
 	@Autowired
 	private MockMvc mvc;
+
+	@BeforeEach
+	public void setUp() {
+		Element0 element0 = new Element0();
+		LOG.info(element0.tdir);
+		LOG.info(element0.name);
+		LOG.info(element0.stringValue);
+	}
+
 
 	@Test
 	public void getHello() throws Exception {

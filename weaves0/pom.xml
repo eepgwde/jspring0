@@ -87,8 +87,27 @@
                             <nohelp>true</nohelp>
                         </configuration>
                     </plugin>
+                    <plugin>
+                        <!--
+                             You have to use the .jar.original file
+                             in a local lib/ directory.
+                        -->
+                        <groupId>org.springframework.boot</groupId>
+                        <artifactId>spring-boot-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>repackage</id>
+                                <goals>
+                                    <goal>repackage</goal>
+                                </goals>
+                                <configuration>
+                                    <attach>false</attach>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
 
-                    <!-- because files are introduced by editors -->
+            <!-- because files are introduced by editors -->
                     <plugin>
                         <artifactId>maven-resources-plugin</artifactId>
                         <version>3.1.0</version>

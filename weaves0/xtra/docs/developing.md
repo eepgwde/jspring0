@@ -18,6 +18,7 @@ These are:
 
  - change the test resources
  - pass more command-line arguments
+
 ## Adding Local JAR files
  
 Maven has deprecated the local system
@@ -55,6 +56,18 @@ Where each refers to:
 <packaging>: the packaging of the file e.g. → jar
 
 https://maven.apache.org/general.html#importing-jars
+
+Spring Boot JAR files cannot be used directly. You will find another JAR in the target/ 
+directory with the suffix .jar.original. This is the one you want!
+
+## Testing with JUnit 5
+
+Another system re-written, this has a tutorial here.
+
+https://github.com/eugenp/tutorials/tree/master/testing-modules/junit-5-basics
+
+And specifically for Spring, https://www.baeldung.com/junit-5
+https://www.baeldung.com/spring-boot-testing
 
 ## Change the Test Resources
 

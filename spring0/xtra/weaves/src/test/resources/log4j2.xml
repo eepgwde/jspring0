@@ -46,7 +46,7 @@
 
   <Loggers>
 
-    <Logger name="org.springframework" level="info">
+    <Logger name="org.springframework" level="debug">
        <!-- drops all org.springframework below info -->
       <AppenderRef ref="rollingFile" />
     </Logger>
@@ -63,7 +63,7 @@
       <AppenderRef ref="local" />
     </Logger>
 
-    <Root level="info">
+    <Root level="debug">
       <AppenderRef ref="console" />
     </Root>
 
