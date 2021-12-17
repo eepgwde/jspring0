@@ -18,6 +18,8 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import javax.annotation.PostConstruct;
+
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -27,14 +29,22 @@ public class HelloControllerTest {
 	@Autowired
 	private MockMvc mvc;
 
+	@Autowired
+	Element0 element0;
+
 	@BeforeEach
 	public void setUp() {
-		Element0 element0 = new Element0();
-		LOG.info(element0.tdir);
-		LOG.info(element0.name);
-		LOG.info(element0.stringValue);
 	}
 
+	@PostConstruct
+	void checkUp() {
+		LOG.info(element0);
+		if (element0 != null) {
+			LOG.info(element0.tdir);
+			LOG.info(element0.name);
+			LOG.info(element0.stringValue);
+		}
+	}
 
 	@Test
 	public void getHello() throws Exception {
