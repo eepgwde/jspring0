@@ -16,6 +16,10 @@ Beans used by Enterprise Java Beans in the early releases of the Java SDK.
 
 The Spring Beans can initialize themselves by loading from properties files or databases.
 
+Spring can be bewildering the first time you use it. It does help to remember how it
+works. It uses the static main() method to carry out a ComponentScan, that will scan its
+own packages first. If it finds any @Configuration annotated classes, it will scan those.
+
 # This Application
 
 This spring0 application is a working example of Spring-Boot. To run it use 
@@ -56,4 +60,23 @@ directory. This is the line to be added after @SpringBootApplication.
 
 If you now run mvn springboot:run and check the log files, you should see element0 
 appears.
+
+ComponentScan has to be at the entry point to the code: ie. main()
+
+### XML 
+
+It is useful to use an XML file to specify component scanning and to build beans.
+These files are usually called applicationContext.xml
+
+You can use one directly with: 
+
+ @SpringBootApplication
+ @ImportResource({"classpath*:applicationContext.xml"})
+ 
+#### Using a Configuration class 
+ 
+If you don't have access to the main() method - it may be in a JAR. You can search add a
+class in the package where you believe main() is. And use ImportResource from there.
+
+See com.example.springboot.Configurer 
 

@@ -5,5 +5,9 @@
     <context:annotation-config />
 
     <context:component-scan base-package="ai.centa.clients" />
+	  <bean id="applicationProperties0"
+		      class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer">
+		    <property name="location" value="classpath:application.properties" />
+	  </bean>
 
 </beans>
