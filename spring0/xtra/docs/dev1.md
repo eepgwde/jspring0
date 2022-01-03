@@ -24,7 +24,7 @@ own packages first. If it finds any @Configuration annotated classes, it will sc
 
 This spring0 application is a working example of Spring-Boot. To run it use 
 
- mvn springboot:run
+ mvn spring-boot:run
  
 The program will run in the foreground, it is providing a web-server. You can kill it or
 background it if you don't intend to do any testing with it as a web-server.
