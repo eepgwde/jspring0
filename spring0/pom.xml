@@ -14,6 +14,21 @@
 	  <name>spring-boot-complete</name>
 	  <description>Demo project for Spring Boot</description>
 
+
+<distributionManagement>
+	<repository>
+		<id>caeneus</id>
+		<name>Internal Releases</name>
+		<url>https://caeneus.mooo.com/repository/caeneus-1/</url>
+	</repository>
+ 
+	<snapshotRepository>
+		<id>caeneus</id>
+		<name>Internal Releases</name>
+		<url>https://caeneus.mooo.com/repository/caeneus-2/</url>
+	</snapshotRepository>
+
+</distributionManagement>
 	  <properties>
 		    <java.version>1.8</java.version>
 	  </properties>
