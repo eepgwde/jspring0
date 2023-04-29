@@ -1,2 +1,15 @@
-gradlew*
+target/
+.gradle/
+.idea/
+lib/
 make.log
+gradle/
+build/
+
+# other junk
+*.iml
+t.txt
+t.lst
+#*
+.\#*
+

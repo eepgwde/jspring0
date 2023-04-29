@@ -18,19 +18,26 @@ repositories {
 dependencies {
     api("org.springframework.boot:spring-boot-starter-web:2.5.0")
     api("org.springframework.boot:spring-boot-starter-actuator:2.5.0")
+    api("org.springframework.boot:spring-boot-starter-log4j2:2.5.0")
     testImplementation("org.springframework.boot:spring-boot-starter-test:2.5.0")
-    implementation("ai.centa:weaves0:0.0.1-SNAPSHOT")
 }
 
-group = "com.example"
+group = "ai.centa"
 version = "0.0.1-SNAPSHOT"
-description = "spring-boot-complete"
+description = "utilecoj"
 java.sourceCompatibility = JavaVersion.VERSION_1_8
+
+// you can write code in here.
+if (hasProperty("group")) println(property("group"))
+
+// this uses this method for keeping credentials secret in gradle.
+// https://docs.gradle.org/current/samples/sample_publishing_credentials.html
 
 publishing {
     publications.create<MavenPublication>("maven") {
         from(components["java"])
     }
+
     repositories {
         maven {
 	          // releases
@@ -39,25 +46,25 @@ publishing {
 	          credentials(PasswordCredentials::class)
             // only if we have a version and it does not end with SNAPSHOT use the releases
             if (hasProperty("version") && 
-                    !property("version").toString().endsWith("-SNAPSHOT")) {
+                !property("version").toString().endsWith("-SNAPSHOT")) {
                 url = uri("http://caeneus.fritz.box:8081/repository/caeneus-1")
        	        mavenContent {
             	      releasesOnly()
                 }
             } else {
-                url = uri("http://caeneus.fritz.box:8081/repository/caeneus-2")
-       	        mavenContent {
-            	      snapshotsOnly()
-                }
+               url = uri("http://caeneus.fritz.box:8081/repository/caeneus-2")
+       	       mavenContent {
+            	     snapshotsOnly()
+               }
             }
 	      }
     }
-}
 
-tasks.withType<JavaCompile>() {
-    options.encoding = "UTF-8"
-}
+    tasks.withType<JavaCompile>() {
+        options.encoding = "UTF-8"
+    }
 
-tasks.withType<Javadoc>() {
-    options.encoding = "UTF-8"
+    tasks.withType<Javadoc>() {
+        options.encoding = "UTF-8"
+    }
 }
