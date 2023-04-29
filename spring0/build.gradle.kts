@@ -11,7 +11,7 @@ repositories {
     mavenLocal()
     maven {
         setAllowInsecureProtocol(true)        
-        url = uri("http://caeneus.fritz.box/repository/caeneus-3/")
+        url = uri("http://caeneus.fritz.box:8081/repository/caeneus-3/")
     }
 }
 

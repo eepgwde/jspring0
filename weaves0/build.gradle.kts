@@ -10,7 +10,8 @@ plugins {
 repositories {
     mavenLocal()
     maven {
-        url = uri("https://repo.maven.apache.org/maven2/")
+        setAllowInsecureProtocol(true)        
+        url = uri("http://caeneus.fritz.box:8081/repository/caeneus-3/")
     }
 }
 
